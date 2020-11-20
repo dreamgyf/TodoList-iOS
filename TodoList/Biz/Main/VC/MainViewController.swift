@@ -61,13 +61,13 @@ class MainViewController: UIViewController {
     
     @objc
     private func onAddButtonClick() {
-        print("click")
+        presentFromBottom(AddTodoViewController())
     }
 }
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //todo click event
     }
 }
 

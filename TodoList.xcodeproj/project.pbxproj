@@ -22,6 +22,11 @@
 		C5256722256653C000F60678 /* MainViewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5256721256653C000F60678 /* MainViewVM.swift */; };
 		C525672D25666CF200F60678 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525672C25666CF200F60678 /* AddButton.swift */; };
 		C525673325667C7100F60678 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525673225667C7100F60678 /* UIColorExtension.swift */; };
+		C525673825676C2900F60678 /* PresentFromBottomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525673725676C2900F60678 /* PresentFromBottomPresentationController.swift */; };
+		C525674C256786EF00F60678 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525674B256786EF00F60678 /* UIViewControllerExtension.swift */; };
+		C5256754256790AA00F60678 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5256753256790AA00F60678 /* AddTodoViewController.swift */; };
+		C525675925679C2100F60678 /* BottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525675825679C2100F60678 /* BottomViewController.swift */; };
+		C525675E2567BB0900F60678 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525675D2567BB0900F60678 /* FlatButton.swift */; };
 		D32B3475FA10004A1E96544C /* Pods_TodoListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD90CF9163444A8D39FF077 /* Pods_TodoListTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +72,11 @@
 		C5256721256653C000F60678 /* MainViewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewVM.swift; sourceTree = "<group>"; };
 		C525672C25666CF200F60678 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		C525673225667C7100F60678 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		C525673725676C2900F60678 /* PresentFromBottomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentFromBottomPresentationController.swift; sourceTree = "<group>"; };
+		C525674B256786EF00F60678 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		C5256753256790AA00F60678 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
+		C525675825679C2100F60678 /* BottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomViewController.swift; sourceTree = "<group>"; };
+		C525675D2567BB0900F60678 /* FlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		D0A191FE9C2361E77ABDE3B2 /* Pods-TodoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoList.release.xcconfig"; path = "Target Support Files/Pods-TodoList/Pods-TodoList.release.xcconfig"; sourceTree = "<group>"; };
 		E8A9647997D2AC3968E294AC /* Pods_TodoList_TodoListUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoList_TodoListUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECD90CF9163444A8D39FF077 /* Pods_TodoListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,8 +159,9 @@
 		C51D26BB2566487600D575E1 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				C525673C2567711500F60678 /* common */,
 				C525673125667C5100F60678 /* Utils */,
-				C52567122566500000F60678 /* Database */,
+				C52567122566500000F60678 /* Data */,
 				C525670825664CD100F60678 /* Biz */,
 				C51D26BC2566487600D575E1 /* AppDelegate.swift */,
 				C51D26BE2566487600D575E1 /* SceneDelegate.swift */,
@@ -211,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				C51D26C02566487600D575E1 /* MainViewController.swift */,
+				C5256753256790AA00F60678 /* AddTodoViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -231,12 +243,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		C52567122566500000F60678 /* Database */ = {
+		C52567122566500000F60678 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				C52567132566502700F60678 /* RealmLoader.swift */,
 			);
-			path = Database;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		C525673125667C5100F60678 /* Utils */ = {
@@ -245,6 +257,25 @@
 				C525673225667C7100F60678 /* UIColorExtension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		C525673C2567711500F60678 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				C525673E256771DB00F60678 /* PresentFromBottom */,
+				C525675D2567BB0900F60678 /* FlatButton.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		C525673E256771DB00F60678 /* PresentFromBottom */ = {
+			isa = PBXGroup;
+			children = (
+				C525673725676C2900F60678 /* PresentFromBottomPresentationController.swift */,
+				C525674B256786EF00F60678 /* UIViewControllerExtension.swift */,
+				C525675825679C2100F60678 /* BottomViewController.swift */,
+			);
+			path = PresentFromBottom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -484,13 +515,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C525675925679C2100F60678 /* BottomViewController.swift in Sources */,
 				C51D26C12566487600D575E1 /* MainViewController.swift in Sources */,
 				C51D26BD2566487600D575E1 /* AppDelegate.swift in Sources */,
 				C51D26BF2566487600D575E1 /* SceneDelegate.swift in Sources */,
+				C525675E2567BB0900F60678 /* FlatButton.swift in Sources */,
 				C525670E25664E4A00F60678 /* TodoModel.swift in Sources */,
+				C5256754256790AA00F60678 /* AddTodoViewController.swift in Sources */,
 				C52567142566502700F60678 /* RealmLoader.swift in Sources */,
 				C525673325667C7100F60678 /* UIColorExtension.swift in Sources */,
+				C525673825676C2900F60678 /* PresentFromBottomPresentationController.swift in Sources */,
 				C5256722256653C000F60678 /* MainViewVM.swift in Sources */,
+				C525674C256786EF00F60678 /* UIViewControllerExtension.swift in Sources */,
 				C525670425664C7B00F60678 /* TodoListCell.swift in Sources */,
 				C525672D25666CF200F60678 /* AddButton.swift in Sources */,
 			);
