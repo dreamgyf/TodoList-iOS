@@ -5,7 +5,7 @@
 //  Created by 高云峰 on 2020/11/19.
 //
 
-class MainViewVM {
+class TodoListVM {
     
     func fetchTodoListData() -> [TodoModel] {
         var data: [TodoModel] = []

@@ -32,6 +32,7 @@ class AddTodoViewController: BottomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        handleKeyboard()
     }
     
     private func setupUI() {
@@ -68,6 +69,11 @@ class AddTodoViewController: BottomViewController {
             make.height.equalTo(view.snp.width).multipliedBy(0.07)
         }
     }
+    
+    private func handleKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
 
 }
 
@@ -77,4 +83,27 @@ extension AddTodoViewController {
     private func onConfirmClick() {
         
     }
+    
+    @objc
+    private func keyboardWillShow(_ notifaction: Notification) {
+        let userInfo = notifaction.userInfo! as Dictionary
+        let rect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let height = rect.height
+        let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber
+        
+        UIView.animate(withDuration: TimeInterval(truncating: duration), animations: {
+            self.view.center = CGPoint.init(x: self.view.center.x, y: self.view.bounds.height / 2 - height)
+        })
+    }
+    
+    @objc
+    private func keyboardWillHide(_ notifaction: Notification) {
+        let userInfo = notifaction.userInfo! as Dictionary
+        let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber
+        
+        UIView.animate(withDuration: TimeInterval(truncating: duration), animations: {
+            self.view.center = CGPoint.init(x: self.view.center.x, y: self.view.bounds.height / 2)
+        })
+    }
+    
 }

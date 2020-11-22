@@ -10,16 +10,25 @@ import SnapKit
 
 class MainViewController: UIViewController {
     
-    private let vm = MainViewVM()
+    private lazy var sideDelegate = SideTransitioningDelegate()
+    private lazy var bottomDelegate = BottomTransitioningDelegate()
     
-    private var todoListData: [TodoModel] = []
+    private lazy var navButton: UIView = {
+        let screenWidth = UIScreen.main.bounds.width
+        let navBarHeight = self.navigationController!.navigationBar.frame.size.height
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: screenWidth * 0.07, height: navBarHeight * 0.5))
+        button.setImage(UIImage(named: "icon_menu"), for: .normal)
+        button.addTarget(self, action: #selector(onMenuClick), for: .touchUpInside)
+        
+        //解决iOS 11以上，图片会拉宽leftBarButtonItem，并且直接设置UIButton的frame无效的问题
+        let view = UIView(frame: button.frame)
+        view.addSubview(button)
+        return view
+    }()
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.cellIdentifier)
-        return tableView
+    private lazy var todoListVC: TodoListViewController = {
+        let vc = TodoListViewController(frame: self.view.frame)
+        return vc
     }()
     
     private lazy var addButton: AddButton = {
@@ -32,16 +41,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        refreshData()
     }
     
     private func setupUI() {
         navigationController?.navigationBar.barTintColor = UIColor.themeColor
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: navButton)
         
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        view.addSubview(todoListVC.view)
         
         view.addSubview(addButton)
         addButton.snp.makeConstraints { (make) in
@@ -50,38 +56,35 @@ class MainViewController: UIViewController {
             make.right.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview().offset(-50)
         }
-        
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50 + view.bounds.width / 6, right: 0)
     }
+    
+}
 
-
-    private func refreshData() {
-        todoListData = vm.fetchTodoListData()
+//actions
+extension MainViewController {
+    @objc
+    private func onMenuClick() {
+        presentSide(UINavigationController(rootViewController: MenuViewController()))
     }
     
     @objc
     private func onAddButtonClick() {
-        presentFromBottom(AddTodoViewController())
+        presentBottom(AddTodoViewController())
     }
 }
 
-extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //todo click event
+extension MainViewController {
+    
+    func presentSide(_ vc: UIViewController) {
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = sideDelegate
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func presentBottom(_ vc: UIViewController) {
+        vc.modalPresentationStyle = .custom
+        vc.transitioningDelegate = bottomDelegate
+        present(vc, animated: true, completion: nil)
     }
 }
 
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoListData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListCell.cellIdentifier) as? TodoListCell else {
-            return UITableViewCell()
-        }
-        cell.setData(todoListData[indexPath.row])
-        return cell
-    }
-    
-}
