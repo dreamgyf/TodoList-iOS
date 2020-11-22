@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddTodoViewController: BottomViewController {
+class EditTodoViewController: BottomViewController {
     
     private lazy var titleView: UITextField = {
         let textField = UITextField()
@@ -77,11 +77,12 @@ class AddTodoViewController: BottomViewController {
 
 }
 
-extension AddTodoViewController {
+extension EditTodoViewController {
     
     @objc
     private func onConfirmClick() {
-        
+        let model = TodoModel(title: titleView.text ?? "", content: contentView.text)
+        dismiss()
     }
     
     @objc

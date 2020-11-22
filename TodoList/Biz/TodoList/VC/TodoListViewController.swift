@@ -9,6 +9,15 @@ import UIKit
 
 class TodoListViewController: NSObject {
     
+    enum Style {
+        case all
+        case today
+        case finished
+        case unfinished
+    }
+    
+    var style: Style
+    
     var view: UIView
     
     private let vm = TodoListVM()
@@ -25,6 +34,7 @@ class TodoListViewController: NSObject {
 
     init(frame: CGRect) {
         view = UIView(frame: frame)
+        style = .all
         super.init()
         
         setupUI()
@@ -40,7 +50,7 @@ class TodoListViewController: NSObject {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50 + view.bounds.width / 6, right: 0)
     }
     
-    private func refreshData() {
+    func refreshData() {
         todoListData = vm.fetchTodoListData()
     }
 

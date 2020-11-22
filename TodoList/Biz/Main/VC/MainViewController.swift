@@ -69,7 +69,7 @@ extension MainViewController {
     
     @objc
     private func onAddButtonClick() {
-        presentBottom(AddTodoViewController())
+        presentBottom(EditTodoViewController())
     }
 }
 
