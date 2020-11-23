@@ -16,7 +16,11 @@ class TodoListViewController: NSObject {
         case unfinished
     }
     
-    var style: Style
+    var style: Style {
+        didSet {
+            refreshData()
+        }
+    }
     
     var view: UIView
     
@@ -38,6 +42,7 @@ class TodoListViewController: NSObject {
         super.init()
         
         setupUI()
+        setupNotification()
         refreshData()
     }
     
@@ -50,8 +55,23 @@ class TodoListViewController: NSObject {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50 + view.bounds.width / 6, right: 0)
     }
     
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: .refreshTodoList, object: nil)
+    }
+    
+    @objc
     func refreshData() {
-        todoListData = vm.fetchTodoListData()
+        switch style {
+        case .all:
+            todoListData = vm.queryAll()
+        case .today:
+            todoListData = vm.queryAll()
+        case .finished:
+            todoListData = vm.queryByStatus(.finished)
+        case .unfinished:
+            todoListData = vm.queryByStatus(.unfinished)
+        }
+        tableView.reloadData()
     }
 
 }

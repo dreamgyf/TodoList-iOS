@@ -7,12 +7,43 @@
 
 class TodoListVM {
     
-    func fetchTodoListData() -> [TodoModel] {
-        var data: [TodoModel] = []
-        for _ in 1...20 {
-            let item = TodoModel(title: "test title", content: "test content")
-            data.append(item)
+    private let db = FMDBHelper.shared.db
+    
+    func queryAll() -> [TodoModel] {
+        let sql = "select * from todo_list"
+        
+        if db.open() {
+            if let res = db.executeQuery(sql, withArgumentsIn: []) {
+                var data: [TodoModel] = []
+                while res.next() {
+                    data.append(FMDBHelper.shared.resultSet2TodoModel(res))
+                }
+                return data
+            }
+            db.close()
         }
-        return data
+        return []
+    }
+    
+    func queryByStatus(_ status: TodoModel.Status) -> [TodoModel] {
+        var sql: String
+        switch status {
+        case .unfinished:
+            sql = "select * from todo_list where status = 0"
+        case .finished:
+            sql = "select * from todo_list where status = 1"
+        }
+        
+        if db.open() {
+            if let res = db.executeQuery(sql, withArgumentsIn: []) {
+                var data: [TodoModel] = []
+                while res.next() {
+                    data.append(FMDBHelper.shared.resultSet2TodoModel(res))
+                }
+                return data
+            }
+            db.close()
+        }
+        return []
     }
 }

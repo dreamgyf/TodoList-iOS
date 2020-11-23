@@ -9,6 +9,8 @@ import UIKit
 
 class EditTodoViewController: BottomViewController {
     
+    private let vm = EditTodoVM()
+    
     private lazy var titleView: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .none
@@ -81,8 +83,20 @@ extension EditTodoViewController {
     
     @objc
     private func onConfirmClick() {
-        let model = TodoModel(title: titleView.text ?? "", content: contentView.text)
+        if titleView.text == nil || titleView.text == "" {
+            titleView.placeholder = "请输入标题"
+            return
+        }
+        
+        let model = TodoModel(id: nil, 
+                              title: titleView.text!, 
+                              content: contentView.text,
+                              createTime: Int32(Date().timeIntervalSince1970),
+                              setTime: nil,
+                              status: .unfinished)
+        vm.saveData(model)
         dismiss()
+        NotificationCenter.default.post(name: .refreshTodoList, object: self)
     }
     
     @objc

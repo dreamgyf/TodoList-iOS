@@ -6,6 +6,16 @@
 //
 
 struct TodoModel {
+    
+    enum Status {
+        case finished
+        case unfinished
+    }
+    
+    let id: Int32?
     let title: String
     let content: String
+    let createTime: Int32
+    let setTime: Int32?
+    let status: Status
 }
