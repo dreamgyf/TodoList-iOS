@@ -33,6 +33,7 @@
 		C525675925679C2100F60678 /* BottomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525675825679C2100F60678 /* BottomViewController.swift */; };
 		C525675E2567BB0900F60678 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525675D2567BB0900F60678 /* FlatButton.swift */; };
 		C525676E256B854C00F60678 /* NSNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C525676D256B854C00F60678 /* NSNotificationExtension.swift */; };
+		C5256773256B899700F60678 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5256772256B899700F60678 /* MenuItemView.swift */; };
 		C55AF0E525694ED500FF6995 /* SidePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55AF0E425694ED500FF6995 /* SidePresentationController.swift */; };
 		D32B3475FA10004A1E96544C /* Pods_TodoListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD90CF9163444A8D39FF077 /* Pods_TodoListTests.framework */; };
 /* End PBXBuildFile section */
@@ -90,6 +91,7 @@
 		C525675825679C2100F60678 /* BottomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomViewController.swift; sourceTree = "<group>"; };
 		C525675D2567BB0900F60678 /* FlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		C525676D256B854C00F60678 /* NSNotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationExtension.swift; sourceTree = "<group>"; };
+		C5256772256B899700F60678 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		C55AF0E425694ED500FF6995 /* SidePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePresentationController.swift; sourceTree = "<group>"; };
 		D0A191FE9C2361E77ABDE3B2 /* Pods-TodoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoList.release.xcconfig"; path = "Target Support Files/Pods-TodoList/Pods-TodoList.release.xcconfig"; sourceTree = "<group>"; };
 		E8A9647997D2AC3968E294AC /* Pods_TodoList_TodoListUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoList_TodoListUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,6 +271,7 @@
 			children = (
 				C55AF0E325694EAD00FF6995 /* SideView */,
 				C525672C25666CF200F60678 /* AddButton.swift */,
+				C5256772256B899700F60678 /* MenuItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 			files = (
 				C500DF55256AC6F4006FB9A8 /* FMDBHelper.swift in Sources */,
 				C525675925679C2100F60678 /* BottomViewController.swift in Sources */,
+				C5256773256B899700F60678 /* MenuItemView.swift in Sources */,
 				C500DF5B256AC933006FB9A8 /* EditTodoVM.swift in Sources */,
 				C51D26C12566487600D575E1 /* MainViewController.swift in Sources */,
 				C51D26BD2566487600D575E1 /* AppDelegate.swift in Sources */,

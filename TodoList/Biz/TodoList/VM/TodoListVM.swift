@@ -4,6 +4,7 @@
 //
 //  Created by 高云峰 on 2020/11/19.
 //
+import Foundation
 
 class TodoListVM {
     
@@ -44,6 +45,10 @@ class TodoListVM {
             }
             db.close()
         }
+        return []
+    }
+    
+    func queryByDate(_ date: Date) -> [TodoModel] {
         return []
     }
 }

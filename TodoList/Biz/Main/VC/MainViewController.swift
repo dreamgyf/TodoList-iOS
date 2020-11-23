@@ -26,6 +26,15 @@ class MainViewController: UIViewController {
         return view
     }()
     
+    private lazy var MenuVC: UINavigationController = {
+        let vc = MenuViewController()
+        vc.action = { style in
+            self.todoListVC.style = style
+        }
+        let nav = UINavigationController(rootViewController: vc)
+        return nav
+    }()
+    
     private lazy var todoListVC: TodoListViewController = {
         let vc = TodoListViewController(frame: self.view.frame)
         return vc
@@ -64,7 +73,7 @@ class MainViewController: UIViewController {
 extension MainViewController {
     @objc
     private func onMenuClick() {
-        presentSide(UINavigationController(rootViewController: MenuViewController()))
+        presentSide(MenuVC)
     }
     
     @objc

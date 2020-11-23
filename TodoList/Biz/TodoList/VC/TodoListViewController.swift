@@ -65,7 +65,7 @@ class TodoListViewController: NSObject {
         case .all:
             todoListData = vm.queryAll()
         case .today:
-            todoListData = vm.queryAll()
+            todoListData = vm.queryByDate(Date())
         case .finished:
             todoListData = vm.queryByStatus(.finished)
         case .unfinished:
