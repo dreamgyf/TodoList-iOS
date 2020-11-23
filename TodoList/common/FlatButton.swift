@@ -10,6 +10,8 @@ import UIKit
 class FlatButton: UIButton {
     
     private let image: UIImage?
+    
+    private let multiplied: CGFloat
 
     private lazy var iconView: UIImageView = {
         let iconView = UIImageView()
@@ -17,8 +19,9 @@ class FlatButton: UIButton {
         return iconView
     } ()
     
-    init(image: UIImage?) {
+    init(image: UIImage?, multipliedBy multiplied: CGFloat = 1) {
         self.image = image
+        self.multiplied = multiplied
         super.init(frame: .zero)
         setupUI()
     }
@@ -32,7 +35,7 @@ class FlatButton: UIButton {
         
         addSubview(iconView)
         iconView.snp.makeConstraints { (make) in
-            make.width.height.equalTo(self.snp.height)
+            make.width.height.equalTo(self.snp.height).multipliedBy(self.multiplied)
             make.center.equalToSuperview()
         }
     }

@@ -26,8 +26,14 @@ class EditTodoViewController: BottomViewController {
     }()
     
     private lazy var confirmButton: UIButton = {
-        let button = FlatButton(image: UIImage(named: "icon_confirm"))
+        let button = FlatButton(image: UIImage(named: "icon_confirm"), multipliedBy: 1.1)
         button.addTarget(self, action: #selector(onConfirmClick), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var clearbutton: UIButton = {
+        let button = FlatButton(image: UIImage(named: "icon_clear"), multipliedBy: 0.7)
+        button.addTarget(self, action: #selector(onClearClick), for: .touchUpInside)
         return button
     }()
     
@@ -86,9 +92,18 @@ class EditTodoViewController: BottomViewController {
             make.height.equalTo(view.snp.width).multipliedBy(0.07)
         }
         
+        containerView.addSubview(clearbutton)
+        clearbutton.snp.makeConstraints { (make) in
+            make.right.equalTo(confirmButton.snp.left).offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+            make.top.equalTo(contentView.snp.bottom).offset(10)
+            make.width.equalToSuperview().multipliedBy(0.2)
+            make.height.equalTo(view.snp.width).multipliedBy(0.07)
+        }
+        
         containerView.addSubview(alarmButton)
         alarmButton.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(UIScreen.main.bounds.width * 0.1 + 20)
+            make.left.equalToSuperview().offset(20)
             make.bottom.equalToSuperview().offset(-20)
             make.top.equalTo(contentView.snp.bottom).offset(10)
             make.width.equalToSuperview().multipliedBy(0.07)
@@ -122,11 +137,17 @@ extension EditTodoViewController {
         dismiss()
         NotificationCenter.default.post(name: .refreshTodoList, object: self)
     }
+    @objc
+    private func onClearClick() {
+        titleView.text = ""
+        contentView.text = ""
+    }
     
     @objc
     private func onAlarmClick() {
         
     }
+    
     
     @objc
     private func keyboardWillShow(_ notifaction: Notification) {
