@@ -14,7 +14,7 @@ class EditTodoVM {
         
         if db.open() {
             db.executeUpdate(sql, withArgumentsIn: [model.title, model.content, model.createTime, 
-                                                    model.setTime ?? -1, model.status == .unfinished ? 0 : 1])
+                                                    model.setTime, model.status == .unfinished ? 0 : 1])
             db.close()
         }
     }

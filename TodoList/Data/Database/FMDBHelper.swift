@@ -47,10 +47,7 @@ class FMDBHelper {
         let title = res.string(forColumn: "title") ?? ""
         let content = res.string(forColumn: "content") ?? ""
         let createTime = res.int(forColumn: "create_time")
-        var setTime: Int32? = res.int(forColumn: "set_time")
-        if setTime == -1 {
-            setTime = nil
-        }
+        let setTime = res.int(forColumn: "set_time")
         let status = res.int(forColumn: "status") == 0 ? TodoModel.Status.unfinished : TodoModel.Status.finished
         
         return TodoModel(id: id, 

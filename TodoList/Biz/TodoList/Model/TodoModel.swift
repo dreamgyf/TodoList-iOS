@@ -16,6 +16,6 @@ struct TodoModel {
     let title: String
     let content: String
     let createTime: Int32
-    let setTime: Int32?
+    let setTime: Int32
     let status: Status
 }

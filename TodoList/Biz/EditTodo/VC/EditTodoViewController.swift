@@ -92,7 +92,7 @@ extension EditTodoViewController {
                               title: titleView.text!, 
                               content: contentView.text,
                               createTime: Int32(Date().timeIntervalSince1970),
-                              setTime: nil,
+                              setTime: Int32(Date().timeIntervalSince1970),
                               status: .unfinished)
         vm.saveData(model)
         dismiss()
