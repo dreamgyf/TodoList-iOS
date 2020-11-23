@@ -11,6 +11,8 @@ class EditTodoViewController: BottomViewController {
     
     private let vm = EditTodoVM()
     
+    private var setTime: TimeInterval?
+    
     private lazy var titleView: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .none
@@ -51,6 +53,18 @@ class EditTodoViewController: BottomViewController {
         }
         return button
     }()
+    
+    private lazy var timePickerView: TimePickerView = {
+        let view = TimePickerView()
+        view.confirmAction = {
+            self.setTime = -1 //todo
+            self.resumeFromTimePicker()
+        }
+        view.cancelAction = {
+            self.resumeFromTimePicker()
+        }
+        return view
+    } ()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,11 +123,48 @@ class EditTodoViewController: BottomViewController {
             make.width.equalToSuperview().multipliedBy(0.07)
             make.height.equalTo(view.snp.width).multipliedBy(0.07)
         }
+        
+        view.addSubview(timePickerView)
+        timePickerView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.top.equalTo(view.snp.bottom)
+        }
     }
     
     private func handleKeyboard() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func showTimePicker() {
+        containerView.snp.remakeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.top.equalTo(view.snp.bottom)
+        }
+        
+        timePickerView.snp.remakeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    private func resumeFromTimePicker() {
+        containerView.snp.remakeConstraints { (make) in
+            make.bottom.left.right.equalToSuperview()
+        }
+        
+        timePickerView.snp.remakeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.top.equalTo(view.snp.bottom)
+        }
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
 
 }
@@ -145,7 +196,7 @@ extension EditTodoViewController {
     
     @objc
     private func onAlarmClick() {
-        
+        showTimePicker()
     }
     
     
