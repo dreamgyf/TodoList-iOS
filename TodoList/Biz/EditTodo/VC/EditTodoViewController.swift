@@ -30,6 +30,21 @@ class EditTodoViewController: BottomViewController {
         button.addTarget(self, action: #selector(onConfirmClick), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var alarmButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(onAlarmClick), for: .touchUpInside)
+        
+        let iconView = UIImageView()
+        iconView.image = UIImage(named: "icon_alarm")
+        
+        button.backgroundColor = UIColor(white: 0, alpha: 0)
+        button.addSubview(iconView)
+        iconView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +85,15 @@ class EditTodoViewController: BottomViewController {
             make.width.equalToSuperview().multipliedBy(0.2)
             make.height.equalTo(view.snp.width).multipliedBy(0.07)
         }
+        
+        containerView.addSubview(alarmButton)
+        alarmButton.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(UIScreen.main.bounds.width * 0.1 + 20)
+            make.bottom.equalToSuperview().offset(-20)
+            make.top.equalTo(contentView.snp.bottom).offset(10)
+            make.width.equalToSuperview().multipliedBy(0.07)
+            make.height.equalTo(view.snp.width).multipliedBy(0.07)
+        }
     }
     
     private func handleKeyboard() {
@@ -97,6 +121,11 @@ extension EditTodoViewController {
         vm.saveData(model)
         dismiss()
         NotificationCenter.default.post(name: .refreshTodoList, object: self)
+    }
+    
+    @objc
+    private func onAlarmClick() {
+        
     }
     
     @objc
