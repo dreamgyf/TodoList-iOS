@@ -9,7 +9,7 @@ import UIKit
 
 class TimePickerView: UIView {
     
-    lazy var picker: UIPickerView = {
+    private lazy var picker: UIPickerView = {
         let view = UIPickerView()
         view.delegate = self
         view.dataSource = self
@@ -63,6 +63,10 @@ class TimePickerView: UIView {
             make.width.equalToSuperview().multipliedBy(0.2)
             make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
+    }
+    
+    func getTime() -> TimeInterval {
+        return -1
     }
     
     var confirmAction: (() -> Void)?

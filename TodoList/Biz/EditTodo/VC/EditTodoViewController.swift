@@ -57,7 +57,7 @@ class EditTodoViewController: BottomViewController {
     private lazy var timePickerView: TimePickerView = {
         let view = TimePickerView()
         view.confirmAction = {
-            self.setTime = -1 //todo
+            self.setTime = view.getTime()
             self.resumeFromTimePicker()
         }
         view.cancelAction = {
@@ -178,11 +178,12 @@ extension EditTodoViewController {
             return
         }
         
+        let now = Date().timeIntervalSince1970
         let model = TodoModel(id: nil, 
                               title: titleView.text!, 
                               content: contentView.text,
-                              createTime: Int32(Date().timeIntervalSince1970),
-                              setTime: Int32(Date().timeIntervalSince1970),
+                              createTime: Int32(now),
+                              setTime: Int32(setTime ?? now),
                               status: .unfinished)
         vm.saveData(model)
         dismiss()
