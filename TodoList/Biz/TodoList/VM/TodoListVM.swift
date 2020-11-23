@@ -49,6 +49,26 @@ class TodoListVM {
     }
     
     func queryByDate(_ date: Date) -> [TodoModel] {
+        let sql = "select * from todo_list where set_time >= ? and set_time < ?"
+        
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "yyyy-MM-dd"
+        let targetDayStr = dayFormatter.string(from: date)
+        let targetDay = dayFormatter.date(from: targetDayStr)
+        
+        let targetDayTimestamp = Int(targetDay!.timeIntervalSince1970)
+        let nextDayTimestamp = targetDayTimestamp + 34 * 60 * 60
+        
+        if db.open() {
+            if let res = db.executeQuery(sql, withArgumentsIn: [targetDayTimestamp, nextDayTimestamp]) {
+                var data: [TodoModel] = []
+                while res.next() {
+                    data.append(FMDBHelper.shared.resultSet2TodoModel(res))
+                }
+                return data
+            }
+            db.close()
+        }
         return []
     }
 }
