@@ -86,6 +86,10 @@ class EditTodoViewController: BottomViewController {
         view.cancelAction = {
             self.resumeFromTimePicker()
         }
+        view.clearAction = {
+            self.setTime = nil
+            self.resumeFromTimePicker()
+        }
         return view
     } ()
     
@@ -195,6 +199,8 @@ class EditTodoViewController: BottomViewController {
             let fmt = DateFormatter()
             fmt.dateFormat = "yyyy-MM-dd HH:mm"
             timeView.text = fmt.string(from: Date(timeIntervalSince1970: TimeInterval(time)))
+        } else {
+            timeView.text = nil
         }
     }
     
@@ -240,7 +246,7 @@ extension EditTodoViewController {
     
     @objc
     private func onConfirmClick() {
-        if titleView.text == nil || titleView.text == "" {
+        if titleView.text == nil || titleView.text!.isEmpty {
             titleView.placeholder = "请输入标题"
             return
         }
@@ -258,8 +264,9 @@ extension EditTodoViewController {
     }
     @objc
     private func onClearClick() {
-        titleView.text = ""
-        contentView.text = ""
+        titleView.text = nil
+        contentView.text = nil
+        setTime = nil
     }
     
     @objc

@@ -29,6 +29,12 @@ class TimePickerView: UIView {
         button.addTarget(self, action: #selector(onCancelClick), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var clearbutton: UIButton = {
+        let button = FlatButton(image: UIImage(named: "icon_clear"), multipliedBy: 0.7)
+        button.addTarget(self, action: #selector(onClearClick), for: .touchUpInside)
+        return button
+    }()
 
     override init(frame: CGRect) {
         earliestYear = Date.thisYear
@@ -62,6 +68,15 @@ class TimePickerView: UIView {
         addSubview(cancelButton)
         cancelButton.snp.makeConstraints { (make) in
             make.right.equalTo(confirmButton.snp.left).offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+            make.top.equalTo(picker.snp.bottom).offset(10)
+            make.width.equalToSuperview().multipliedBy(0.2)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+        }
+        
+        addSubview(clearbutton)
+        clearbutton.snp.makeConstraints { (make) in
+            make.right.equalTo(cancelButton.snp.left).offset(-20)
             make.bottom.equalToSuperview().offset(-20)
             make.top.equalTo(picker.snp.bottom).offset(10)
             make.width.equalToSuperview().multipliedBy(0.2)
@@ -106,7 +121,7 @@ class TimePickerView: UIView {
     
     var confirmAction: (() -> Void)?
     var cancelAction: (() -> Void)?
-    
+    var clearAction: (() -> Void)?
 }
 
 extension TimePickerView {
@@ -121,6 +136,13 @@ extension TimePickerView {
     @objc
     private func onCancelClick() {
         if let action = cancelAction {
+            action()
+        }
+    }
+    
+    @objc
+    private func onClearClick() {
+        if let action = clearAction {
             action()
         }
     }
