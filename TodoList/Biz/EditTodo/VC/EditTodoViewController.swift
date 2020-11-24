@@ -274,7 +274,6 @@ extension EditTodoViewController {
         showTimePicker()
     }
     
-    
     @objc
     private func keyboardWillShow(_ notifaction: Notification) {
         let userInfo = notifaction.userInfo! as Dictionary
