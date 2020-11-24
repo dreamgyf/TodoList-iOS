@@ -71,4 +71,13 @@ class TodoListVM {
         }
         return []
     }
+    
+    func deleteData(_ data: TodoModel) {
+        let sql = "delete from todo_list where id = ?"
+        
+        if db.open() {
+            db.executeUpdate(sql, withArgumentsIn: [data.id!])
+            db.close()
+        }
+    }
 }
