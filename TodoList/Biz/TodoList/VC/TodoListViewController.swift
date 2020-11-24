@@ -80,11 +80,12 @@ class TodoListViewController: NSObject {
 
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         presentBottom?(EditTodoViewController(data: todoListData[indexPath.row]))
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "删除", handler: {_,_,_ in 
+        let action = UIContextualAction(style: .destructive, title: "删除", handler: { _,_,_ in 
             let data = self.todoListData[indexPath.row]
             self.vm.deleteData(data)
             self.refreshData()

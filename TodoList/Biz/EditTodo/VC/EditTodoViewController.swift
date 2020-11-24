@@ -13,7 +13,11 @@ class EditTodoViewController: BottomViewController {
     
     private let data: TodoModel?
     
-    private var setTime: TimeInterval?
+    private var setTime: TimeInterval? {
+        didSet {
+            refreshTimeView()
+        }
+    }
     
     private lazy var titleView: UITextField = {
         let textField = UITextField()
@@ -54,6 +58,13 @@ class EditTodoViewController: BottomViewController {
             make.edges.equalToSuperview()
         }
         return button
+    }()
+    
+    private lazy var timeView: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.themeColor
+        label.font = UIFont.systemFont(ofSize: 13)
+        return label
     }()
     
     private lazy var timePickerView: TimePickerView = {
@@ -141,6 +152,12 @@ class EditTodoViewController: BottomViewController {
             make.height.equalTo(view.snp.width).multipliedBy(0.07)
         }
         
+        containerView.addSubview(timeView)
+        timeView.snp.makeConstraints { (make) in
+            make.left.equalTo(alarmButton.snp.right).offset(4)
+            make.centerY.equalTo(alarmButton)
+        }
+        
         view.addSubview(timePickerView)
         timePickerView.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
@@ -154,6 +171,14 @@ class EditTodoViewController: BottomViewController {
             contentView.text = data.content
             setTime = TimeInterval(data.setTime)
             timePickerView.selectDate(Date(timeIntervalSince1970: TimeInterval(data.setTime)))
+        }
+    }
+    
+    private func refreshTimeView() {
+        if let time = self.setTime {
+            let fmt = DateFormatter()
+            fmt.dateFormat = "yyyy-MM-dd HH:mm"
+            timeView.text = fmt.string(from: Date(timeIntervalSince1970: TimeInterval(time)))
         }
     }
     
