@@ -102,7 +102,14 @@ extension TodoListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListCell.cellIdentifier) as? TodoListCell else {
             return UITableViewCell()
         }
-        cell.setData(todoListData[indexPath.row])
+        
+        var data = todoListData[indexPath.row]
+        cell.finishAction = {
+            data.status = .finished
+            self.vm.updateData(data)
+            self.refreshData()
+        }
+        cell.setData(data)
         return cell
     }
     

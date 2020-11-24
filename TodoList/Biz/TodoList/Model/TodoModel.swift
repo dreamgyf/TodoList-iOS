@@ -12,10 +12,10 @@ struct TodoModel {
         case unfinished
     }
     
-    let id: Int32?
-    let title: String
-    let content: String
-    let createTime: Int32
-    let setTime: Int32
-    let status: Status
+    var id: Int32?
+    var title: String
+    var content: String
+    var createTime: Int32
+    var setTime: Int32
+    var status: Status
 }

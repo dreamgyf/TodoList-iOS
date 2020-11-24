@@ -80,4 +80,18 @@ class TodoListVM {
             db.close()
         }
     }
+    
+    func updateData(_ data: TodoModel) {
+        let sql = "update todo_list set title = ?, content = ?, create_time = ?, set_time = ?, status = ? where id = ?"
+        
+        if db.open() {
+            db.executeUpdate(sql, withArgumentsIn: [data.title, 
+                                                    data.content, 
+                                                    data.createTime, 
+                                                    data.setTime, 
+                                                    data.status == .unfinished ? 0 : 1, 
+                                                    data.id!])
+            db.close()
+        }
+    }
 }

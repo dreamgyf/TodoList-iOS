@@ -159,6 +159,7 @@
 		C500DF2A256A6391006FB9A8 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				C5256786256CBBE600F60678 /* View */,
 				C525670C25664E2B00F60678 /* Model */,
 				C525670B25664D0D00F60678 /* VM */,
 				C500DF2B256A63A3006FB9A8 /* VC */,
@@ -195,7 +196,6 @@
 		C500DF44256AC037006FB9A8 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C525670325664C7B00F60678 /* TodoListCell.swift */,
 				C5256777256BB05300F60678 /* TimePickerView.swift */,
 			);
 			path = View;
@@ -363,6 +363,14 @@
 				C525675825679C2100F60678 /* BottomViewController.swift */,
 			);
 			path = PresentFromBottom;
+			sourceTree = "<group>";
+		};
+		C5256786256CBBE600F60678 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C525670325664C7B00F60678 /* TodoListCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C55AF0E325694EAD00FF6995 /* SideView */ = {
