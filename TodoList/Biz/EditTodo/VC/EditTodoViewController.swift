@@ -57,7 +57,7 @@ class EditTodoViewController: BottomViewController {
     private lazy var timePickerView: TimePickerView = {
         let view = TimePickerView()
         view.confirmAction = {
-            self.setTime = view.getTime()
+            self.setTime = view.getTime().timeIntervalSince1970
             self.resumeFromTimePicker()
         }
         view.cancelAction = {

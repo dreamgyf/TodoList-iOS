@@ -32,6 +32,7 @@ class TimePickerView: UIView {
         super.init(frame: frame)
         
         setupUI()
+        selectToday()
     }
     
     required init?(coder: NSCoder) {
@@ -65,8 +66,32 @@ class TimePickerView: UIView {
         }
     }
     
-    func getTime() -> TimeInterval {
-        return -1
+    private func selectToday() {
+        let fmt = DateFormatter()
+        fmt.dateFormat = "yyyy-MM-dd-HH-mm"
+        let fullDateStr = fmt.string(from: Date())
+        let dateArray = fullDateStr.split(separator: "-")
+        let month = dateArray[1]
+        let day = dateArray[2]
+        let hour = dateArray[3]
+        let min = dateArray[4]
+        picker.selectRow(Int(month)! - 1, inComponent: 1, animated: false)
+        picker.selectRow(Int(day)! - 1, inComponent: 2, animated: false)
+        picker.selectRow(Int(hour)!, inComponent: 3, animated: false)
+        picker.selectRow(Int(min)!, inComponent: 4, animated: false)
+    }
+    
+    func getTime() -> Date {
+        let yearStr = self.pickerView(picker, titleForRow: picker.selectedRow(inComponent: 0), forComponent: 0)!
+        let monthStr = self.pickerView(picker, titleForRow: picker.selectedRow(inComponent: 1), forComponent: 1)!
+        let dayStr = self.pickerView(picker, titleForRow: picker.selectedRow(inComponent: 2), forComponent: 2)!
+        let hourStr = self.pickerView(picker, titleForRow: picker.selectedRow(inComponent: 3), forComponent: 3)!
+        let minStr = self.pickerView(picker, titleForRow: picker.selectedRow(inComponent: 4), forComponent: 4)!
+        
+        let dateStr = "\(yearStr)-\(monthStr)-\(dayStr) \(hourStr):\(minStr)"
+        let fmt = DateFormatter()
+        fmt.dateFormat = "yyyy-MM-dd HH:mm"
+        return fmt.date(from: dateStr)!
     }
     
     var confirmAction: (() -> Void)?
@@ -93,17 +118,52 @@ extension TimePickerView {
 
 extension TimePickerView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        "test"
+        switch component {
+        case 0:
+            return "\(Int(Date.thisYear)! + row)"
+        case 1:
+            return "\(row + 1)"
+        case 2:
+            return "\(row + 1)"
+        case 3:
+            return "\(row)".fillZero(count: 2)
+        case 4:
+            return "\(row)".fillZero(count: 2)
+        default:
+            return ""
+        }
     }
 }
 
 extension TimePickerView: UIPickerViewDataSource {
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         5
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        5
+        switch component {
+        case 0:
+            return 3
+        case 1:
+            return 12
+        case 2:
+            let yearStr = self.pickerView(pickerView, titleForRow: pickerView.selectedRow(inComponent: 0), forComponent: 0)!
+            let monthStr = self.pickerView(pickerView, titleForRow: pickerView.selectedRow(inComponent: 1), forComponent: 1)!
+            return Date.getDays(year: Int(yearStr)!, month: Int(monthStr)!)
+        case 3:
+            return 24
+        case 4:
+            return 60
+        default:
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 1 {
+            pickerView.reloadComponent(2)
+        }
     }
     
 }
