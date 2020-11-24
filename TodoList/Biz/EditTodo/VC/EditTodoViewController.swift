@@ -30,7 +30,17 @@ class EditTodoViewController: BottomViewController {
     private lazy var contentView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 20)
+        textView.textContainer.lineFragmentPadding = 0
+        textView.delegate = self
         return textView
+    }()
+    
+    private lazy var contentPlaceholderView: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = UIColor.placeholderText
+        label.text = "描述"
+        return label
     }()
     
     private lazy var confirmButton: UIButton = {
@@ -118,9 +128,15 @@ class EditTodoViewController: BottomViewController {
             make.top.equalTo(titleView.snp.bottom).offset(7)
         }
         
+        contentView.addSubview(contentPlaceholderView)
+        contentPlaceholderView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview().offset(8)
+        }
+        
         containerView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview().inset(20)
+            make.left.right.equalToSuperview().inset(18)
             make.top.equalTo(horLine.snp.bottom)
             make.height.equalTo(view.snp.height).multipliedBy(0.2)
         }
@@ -274,4 +290,11 @@ extension EditTodoViewController {
         })
     }
     
+}
+
+extension EditTodoViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        contentPlaceholderView.isHidden = !textView.text.isEmpty
+    }
 }
