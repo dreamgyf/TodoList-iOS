@@ -9,6 +9,8 @@ import UIKit
 
 class TimePickerView: UIView {
     
+    private var earliestYear: String
+    
     private lazy var picker: UIPickerView = {
         let view = UIPickerView()
         view.delegate = self
@@ -29,10 +31,11 @@ class TimePickerView: UIView {
     }()
 
     override init(frame: CGRect) {
+        earliestYear = Date.thisYear
         super.init(frame: frame)
         
         setupUI()
-        selectToday()
+        selectDate(Date())
     }
     
     required init?(coder: NSCoder) {
@@ -66,15 +69,22 @@ class TimePickerView: UIView {
         }
     }
     
-    private func selectToday() {
+    func selectDate(_ date: Date) {
         let fmt = DateFormatter()
         fmt.dateFormat = "yyyy-MM-dd-HH-mm"
-        let fullDateStr = fmt.string(from: Date())
+        let fullDateStr = fmt.string(from: date)
         let dateArray = fullDateStr.split(separator: "-")
+        let year = dateArray[0]
         let month = dateArray[1]
         let day = dateArray[2]
         let hour = dateArray[3]
         let min = dateArray[4]
+        
+        if Int(year)! < Int(earliestYear)! {
+            earliestYear = String(year)
+            picker.reloadComponent(0)
+        }
+        
         picker.selectRow(Int(month)! - 1, inComponent: 1, animated: false)
         picker.selectRow(Int(day)! - 1, inComponent: 2, animated: false)
         picker.selectRow(Int(hour)!, inComponent: 3, animated: false)
@@ -120,7 +130,7 @@ extension TimePickerView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return "\(Int(Date.thisYear)! + row)"
+            return "\(Int(earliestYear)! + row)"
         case 1:
             return "\(row + 1)"
         case 2:
@@ -144,7 +154,7 @@ extension TimePickerView: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return 3
+            return Int(Date.thisYear)! - Int(earliestYear)! + 3
         case 1:
             return 12
         case 2:

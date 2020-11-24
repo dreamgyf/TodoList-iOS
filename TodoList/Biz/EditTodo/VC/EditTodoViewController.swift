@@ -11,6 +11,8 @@ class EditTodoViewController: BottomViewController {
     
     private let vm = EditTodoVM()
     
+    private let data: TodoModel?
+    
     private var setTime: TimeInterval?
     
     private lazy var titleView: UITextField = {
@@ -65,10 +67,25 @@ class EditTodoViewController: BottomViewController {
         }
         return view
     } ()
-
+    
+    init() {
+        self.data = nil
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(data: TodoModel) {
+        self.data = data
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        preLoadData()
         handleKeyboard()
     }
     
@@ -128,6 +145,15 @@ class EditTodoViewController: BottomViewController {
         timePickerView.snp.makeConstraints { (make) in
             make.width.equalToSuperview()
             make.top.equalTo(view.snp.bottom)
+        }
+    }
+    
+    private func preLoadData() {
+        if let data = self.data {
+            titleView.text = data.title
+            contentView.text = data.content
+            setTime = TimeInterval(data.setTime)
+            timePickerView.selectDate(Date(timeIntervalSince1970: TimeInterval(data.setTime)))
         }
     }
     

@@ -37,6 +37,9 @@ class MainViewController: UIViewController {
     
     private lazy var todoListVC: TodoListViewController = {
         let vc = TodoListViewController(frame: self.view.frame)
+        vc.presentBottom = { vc in
+            self.presentBottom(vc)
+        }
         return vc
     }()
     

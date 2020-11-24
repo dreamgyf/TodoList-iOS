@@ -24,6 +24,8 @@ class TodoListViewController: NSObject {
     
     var view: UIView
     
+    var presentBottom: ((_ vc: UIViewController) -> Void)?
+    
     private let vm = TodoListVM()
     
     private var todoListData: [TodoModel] = []
@@ -78,7 +80,7 @@ class TodoListViewController: NSObject {
 
 extension TodoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //todo click event
+        presentBottom?(EditTodoViewController(data: todoListData[indexPath.row]))
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
