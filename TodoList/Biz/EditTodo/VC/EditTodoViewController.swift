@@ -9,6 +9,13 @@ import UIKit
 
 class EditTodoViewController: BottomViewController {
     
+    private enum Mode {
+        case add
+        case edit
+    }
+    
+    private let mode: Mode
+    
     private let vm = EditTodoVM()
     
     private let data: TodoModel?
@@ -94,11 +101,13 @@ class EditTodoViewController: BottomViewController {
     } ()
     
     init() {
+        self.mode = .add
         self.data = nil
         super.init(nibName: nil, bundle: nil)
     }
     
     init(data: TodoModel) {
+        self.mode = .edit
         self.data = data
         super.init(nibName: nil, bundle: nil)
     }
@@ -251,14 +260,20 @@ extension EditTodoViewController {
             return
         }
         
+        let id = data?.id
         let now = Date().timeIntervalSince1970
-        let model = TodoModel(id: nil, 
+        let model = TodoModel(id: id, 
                               title: titleView.text!, 
                               content: contentView.text,
                               createTime: Int32(now),
                               setTime: Int32(setTime ?? now),
                               status: .unfinished)
-        vm.saveData(model)
+        
+        if mode == .add {
+            vm.saveData(model)
+        } else if mode == .edit {
+            vm.updateData(model)
+        }
         dismiss()
         NotificationCenter.default.post(name: .refreshTodoList, object: self)
     }
