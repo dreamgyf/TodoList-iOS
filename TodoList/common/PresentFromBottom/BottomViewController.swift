@@ -43,7 +43,7 @@ class BottomViewController: UIViewController {
     }
     
     func dismiss() {
-        super.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
 }

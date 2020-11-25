@@ -199,12 +199,21 @@ class EditTodoViewController: BottomViewController {
     }
     
     private func preLoadData() {
-        if let data = self.data {
+        if mode == .add, let model = MemoryCache.get(key: "EditTodoViewController.AddCache") as? TodoModel {
+            // 如果是新建模式，从cache里读取上一次未新建时留存的内容（如果有）
+            titleView.text = model.title
+            contentView.text = model.content
+            if model.setTime != -1 {
+                setTime = TimeInterval(model.setTime)
+                timePickerView.selectDate(Date(timeIntervalSince1970: TimeInterval(model.setTime)))
+            }
+        } else if mode == .edit, let data = self.data {
             titleView.text = data.title
             contentView.text = data.content
             setTime = TimeInterval(data.setTime)
             timePickerView.selectDate(Date(timeIntervalSince1970: TimeInterval(data.setTime)))
         }
+        self.textViewDidChange(contentView)
     }
     
     private func refreshTimeView() {
@@ -252,6 +261,29 @@ class EditTodoViewController: BottomViewController {
             self.view.layoutIfNeeded()
         })
     }
+    
+    private enum OriginOfDismiss {
+        case confirm
+        case clickOuter
+    }
+    
+    private var dismissBy: OriginOfDismiss = .clickOuter
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        // 如果是新建模式，并且没有点击确定按钮，将这次内容保存到cache中
+        if mode == .add, dismissBy == .clickOuter {
+            let model = TodoModel(id: nil, 
+                                  title: titleView.text!, 
+                                  content: contentView.text,
+                                  createTime: Int32(Date().timeIntervalSince1970),
+                                  setTime: Int32(setTime ?? -1),
+                                  status: .unfinished)
+            MemoryCache.put(key: "EditTodoViewController.AddCache", value: model)
+        } else if dismissBy == .confirm {
+            let _ = MemoryCache.remove(key: "EditTodoViewController.AddCache")
+        }
+        super.dismiss(animated: flag, completion: completion)
+    }
 
 }
 
@@ -278,9 +310,11 @@ extension EditTodoViewController {
         } else if mode == .edit {
             vm.updateData(model)
         }
+        dismissBy = .confirm
         dismiss()
         NotificationCenter.default.post(name: .refreshTodoList, object: self)
     }
+    
     @objc
     private func onClearClick() {
         titleView.text = nil
