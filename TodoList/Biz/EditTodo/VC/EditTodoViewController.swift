@@ -45,7 +45,11 @@ class EditTodoViewController: BottomViewController {
     private lazy var contentPlaceholderView: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = UIColor.placeholderText
+        if #available(iOS 13.0, *) {
+            label.textColor = UIColor.placeholderText
+        } else {
+            label.textColor = UIColor(red: 60, green: 60, blue: 67, alpha: 0.3)
+        }
         label.text = "描述"
         return label
     }()

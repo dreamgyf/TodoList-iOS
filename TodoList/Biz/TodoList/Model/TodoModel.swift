@@ -63,11 +63,12 @@ extension TodoModel {
         return []
     }
     
-    static func queryByDate(_ date: Date) -> [TodoModel] {
+    static func queryByDate(_ date: Date, timeZone: TimeZone = TimeZone.current) -> [TodoModel] {
         let sql = "select * from todo_list where set_time >= ? and set_time < ?"
         
         let dayFormatter = DateFormatter()
         dayFormatter.dateFormat = "yyyy-MM-dd"
+        dayFormatter.timeZone = timeZone
         let targetDayStr = dayFormatter.string(from: date)
         let targetDay = dayFormatter.date(from: targetDayStr)
         

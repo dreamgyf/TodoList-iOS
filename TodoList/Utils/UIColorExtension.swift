@@ -12,7 +12,11 @@ extension UIColor {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 let scanner = Scanner(string: hexString)
                 if (hexString.hasPrefix("#")) {
-                    scanner.currentIndex = scanner.string.index(after: scanner.currentIndex)
+                    if #available(iOS 13.0, *) {
+                        scanner.currentIndex = scanner.string.index(after: scanner.currentIndex)
+                    } else {
+                        scanner.scanLocation += 1
+                    }
                 }
                 var color: UInt64 = 0
                 scanner.scanHexInt64(&color)
