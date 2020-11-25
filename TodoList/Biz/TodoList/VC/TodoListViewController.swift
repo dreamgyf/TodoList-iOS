@@ -35,6 +35,7 @@ class TodoListViewController: NSObject {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.cellIdentifier)
+        tableView.tableFooterView = UIView()
         return tableView
     }()
 
