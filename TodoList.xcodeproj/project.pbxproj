@@ -39,6 +39,7 @@
 		C5256782256C9F6200F60678 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5256781256C9F6200F60678 /* StringExtension.swift */; };
 		C55AF0E525694ED500FF6995 /* SidePresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C55AF0E425694ED500FF6995 /* SidePresentationController.swift */; };
 		C5A47303256E580C00BB3E90 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A47302256E580C00BB3E90 /* MemoryCache.swift */; };
+		C5A47314256F79A500BB3E90 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A47313256F79A500BB3E90 /* UIViewControllerExtension.swift */; };
 		D32B3475FA10004A1E96544C /* Pods_TodoListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD90CF9163444A8D39FF077 /* Pods_TodoListTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		C5256781256C9F6200F60678 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C55AF0E425694ED500FF6995 /* SidePresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePresentationController.swift; sourceTree = "<group>"; };
 		C5A47302256E580C00BB3E90 /* MemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
+		C5A47313256F79A500BB3E90 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D0A191FE9C2361E77ABDE3B2 /* Pods-TodoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodoList.release.xcconfig"; path = "Target Support Files/Pods-TodoList/Pods-TodoList.release.xcconfig"; sourceTree = "<group>"; };
 		E8A9647997D2AC3968E294AC /* Pods_TodoList_TodoListUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoList_TodoListUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECD90CF9163444A8D39FF077 /* Pods_TodoListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodoListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +346,7 @@
 				C525676D256B854C00F60678 /* NSNotificationExtension.swift */,
 				C525677C256BC4B800F60678 /* DateExtension.swift */,
 				C5256781256C9F6200F60678 /* StringExtension.swift */,
+				C5A47313256F79A500BB3E90 /* UIViewControllerExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				C5256782256C9F6200F60678 /* StringExtension.swift in Sources */,
 				C51D26BF2566487600D575E1 /* SceneDelegate.swift in Sources */,
 				C525675E2567BB0900F60678 /* FlatButton.swift in Sources */,
+				C5A47314256F79A500BB3E90 /* UIViewControllerExtension.swift in Sources */,
 				C525670E25664E4A00F60678 /* TodoModel.swift in Sources */,
 				C5256754256790AA00F60678 /* EditTodoViewController.swift in Sources */,
 				C500DF13256A55B2006FB9A8 /* MenuViewController.swift in Sources */,

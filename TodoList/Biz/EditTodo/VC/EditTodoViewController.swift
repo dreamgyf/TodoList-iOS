@@ -9,6 +9,8 @@ import UIKit
 
 class EditTodoViewController: BottomViewController {
     
+    private static let CacheKey = "EditTodoViewController.AddCache"
+    
     private enum Mode {
         case add
         case edit
@@ -199,7 +201,7 @@ class EditTodoViewController: BottomViewController {
     }
     
     private func preLoadData() {
-        if mode == .add, let model = MemoryCache.get(key: "EditTodoViewController.AddCache") as? TodoModel {
+        if mode == .add, let model = MemoryCache.get(key: EditTodoViewController.CacheKey) as? TodoModel {
             // 如果是新建模式，从cache里读取上一次未新建时留存的内容（如果有）
             titleView.text = model.title
             contentView.text = model.content
@@ -278,9 +280,9 @@ class EditTodoViewController: BottomViewController {
                                   createTime: Int32(Date().timeIntervalSince1970),
                                   setTime: Int32(setTime ?? -1),
                                   status: .unfinished)
-            MemoryCache.put(key: "EditTodoViewController.AddCache", value: model)
+            MemoryCache.put(key: EditTodoViewController.CacheKey, value: model)
         } else if dismissBy == .confirm {
-            let _ = MemoryCache.remove(key: "EditTodoViewController.AddCache")
+            let _ = MemoryCache.remove(key: EditTodoViewController.CacheKey)
         }
         super.dismiss(animated: flag, completion: completion)
     }
@@ -292,7 +294,7 @@ extension EditTodoViewController {
     @objc
     private func onConfirmClick() {
         if titleView.text == nil || titleView.text!.isEmpty {
-            titleView.placeholder = "请输入标题"
+            showAlert(title: "请输入标题", message: nil, preferredStyle: .alert)
             return
         }
         
