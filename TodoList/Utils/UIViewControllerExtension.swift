@@ -13,7 +13,7 @@ extension UIViewController {
     func showAlert(title: String?, message: String?, preferredStyle: UIAlertController.Style, delay: TimeInterval = 1) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
         self.present(alertController, animated: true, completion: nil)
-        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(dismissAlert(_ :)), userInfo: alertController, repeats: false)
+        Timer.scheduledTimer(timeInterval: delay, target: self, selector: #selector(dismissAlert(_ :)), userInfo: alertController, repeats: false)
     }
     
     @objc
