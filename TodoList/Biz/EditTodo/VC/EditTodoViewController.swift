@@ -308,9 +308,23 @@ extension EditTodoViewController {
                               status: .unfinished)
         
         if mode == .add {
-            vm.saveData(model)
+            if let id = vm.saveData(model) {
+                TodoLocalNotifactionUtils.addNotifaction(id: String(id), 
+                                                         date: Date(timeIntervalSince1970: TimeInterval(Int(model.setTime))), 
+                                                         title: model.title, subtitle: "", body: model.content) { _ in 
+                    //TODO 进入详情页面
+                }
+            }
         } else if mode == .edit {
             vm.updateData(model)
+            if let id = model.id {
+                TodoLocalNotifactionUtils.removeNotifaction(id: String(id))
+                TodoLocalNotifactionUtils.addNotifaction(id: String(id), 
+                                                         date: Date(timeIntervalSince1970: TimeInterval(Int(model.setTime))), 
+                                                         title: model.title, subtitle: "", body: model.content) { _ in
+                    //TODO 进入详情页面
+                }
+            }
         }
         dismissBy = .confirm
         dismiss()

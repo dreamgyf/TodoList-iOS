@@ -43,7 +43,7 @@ class FMDBHelper {
     }
     
     func resultSet2TodoModel(_ res: FMResultSet) -> TodoModel {
-        let id = res.int(forColumn: "id")
+        let id = res.longLongInt(forColumn: "id")
         let title = res.string(forColumn: "title") ?? ""
         let content = res.string(forColumn: "content") ?? ""
         let createTime = res.int(forColumn: "create_time")

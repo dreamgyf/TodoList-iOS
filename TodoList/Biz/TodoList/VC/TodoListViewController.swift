@@ -90,6 +90,9 @@ extension TodoListViewController: UITableViewDelegate {
             let data = self.todoListData[indexPath.row]
             self.vm.deleteData(data)
             self.refreshData()
+            if let id = data.id {
+                TodoLocalNotifactionUtils.removeNotifaction(id: String(id))
+            }
         })
         
         action.backgroundColor = UIColor.systemRed

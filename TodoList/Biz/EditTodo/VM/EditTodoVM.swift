@@ -8,8 +8,8 @@ import FMDB
 
 class EditTodoVM {
     
-    func saveData(_ model: TodoModel) {
-        TodoModel.saveData(model)
+    func saveData(_ model: TodoModel) -> Int64? {
+        return TodoModel.saveData(model)
     }
     
     func updateData(_ model: TodoModel) {

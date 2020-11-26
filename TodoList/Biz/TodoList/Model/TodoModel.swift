@@ -13,7 +13,7 @@ struct TodoModel {
         case unfinished
     }
     
-    var id: Int32?
+    var id: Int64?
     var title: String
     var content: String
     var createTime: Int32
@@ -88,14 +88,17 @@ extension TodoModel {
         return []
     }
     
-    static func saveData(_ model: TodoModel) {
+    static func saveData(_ model: TodoModel) -> Int64? {
         let sql = "insert into todo_list (title, content, create_time, set_time, status) values (?, ?, ?, ?, ?)"
         
+        var id: Int64?
         if db.open() {
             db.executeUpdate(sql, withArgumentsIn: [model.title, model.content, model.createTime, 
                                                     model.setTime, model.status == .unfinished ? 0 : 1])
+            id = db.lastInsertRowId
             db.close()
         }
+        return id
     }
     
     static func updateData(_ data: TodoModel) {
